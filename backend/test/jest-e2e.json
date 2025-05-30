@@ -9,14 +9,12 @@
     "moduleNameMapper": {
         "^@/(.*)$": "<rootDir>/$1",
         "^@root/(.*)$": "<rootDir>/$1/",
-        "^@app/(.*)$": "<rootDir>/src/app/$1/",
-        "^@modules/(.*)$": "<rootDir>/src/app/modules/$1/",
-        "^@shared/(.*)$": "<rootDir>/src/app/shared/$1/",
-        "^@infra/(.*)$": "<rootDir>/src/infra/$1/"
+        "^@application/(.*)$": "<rootDir>/src/application/$1/",
+        "^@modules/(.*)$": "<rootDir>/src/application/modules/$1/",
+        "^@shared/(.*)$": "<rootDir>/src/application/shared/$1/",
+        "^@infrastructure/(.*)$": "<rootDir>/src/infrastructure/$1/"
     },
     "collectCoverageFrom": ["src/**/*.ts"],
-    "coveragePathIgnorePatterns": [
-        "/node_modules/",
-        "test"
-	]
+    "setupFilesAfterEnv": ["<rootDir>/test/post-setup.ts"],
+    "coveragePathIgnorePatterns": ["/node_modules/", "test"]
 }
