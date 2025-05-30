@@ -20,10 +20,10 @@
     "paths": {
       "@root/*": ["./*"],
       "@/*": ["src/*"],
-      "@app/*": ["src/app/*"],
-      "@shared/*": ["src/app/shared/*"],
-      "@modules/*": ["src/app/modules/*"],
-      "@infra/*": ["src/infra/*"],
+      "@application/*": ["src/application/*"],
+      "@shared/*": ["src/application/shared/*"],
+      "@modules/*": ["src/application/modules/*"],
+      "@infrastructure/*": ["src/infrastructure/*"],
   }    
   }
 }
