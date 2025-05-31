@@ -6,6 +6,7 @@ import { StudentModule } from '../students/student.module';
 import { GenerateAccessTokenUseCase } from './usecases/generate-acces-token.usecase';
 import { AuthController } from './controllers/auth.controller';
 import { CryptoModule } from '@root/src/infrastructure/crypto/crypto.module';
+import { JwtStrategy } from './jwt.strategy';
 
 @Module({
     controllers: [AuthController],
@@ -20,6 +21,6 @@ import { CryptoModule } from '@root/src/infrastructure/crypto/crypto.module';
         StudentModule,
         CryptoModule,
     ],
-    providers: [LoginUseCase, GenerateAccessTokenUseCase],
+    providers: [LoginUseCase, GenerateAccessTokenUseCase, JwtStrategy],
 })
 export class AuthModule {}
