@@ -2,6 +2,7 @@ pre-commit:
   jobs:
     - name: "Execução do ESLint ❗"
       run: npx eslint --fix {staged_files}
+      root: "backend/"
       glob:
         - "*.ts"
         - "*.js"
@@ -9,6 +10,7 @@ pre-commit:
 
     - name: "Execução do Prettier ✨"
       run: npx prettier --write {staged_files}
+      root: "backend/"      
       glob:
         - "*.ts"
         - "*.js"
@@ -17,4 +19,5 @@ pre-commit:
 commit-msg:
   commands:
     Validação de commit 📃:
+      root: "backend/"      
       run: npx commitlint --edit {1}
