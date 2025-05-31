@@ -6,7 +6,7 @@ export const GetUserAuth = createParamDecorator(
     (_, ctx: ExecutionContext): StudentEntity => {
         const req = ctx
             .switchToHttp()
-            .getRequest<Request & { student: StudentEntity }>();
-        return req.student;
+            .getRequest<Request & { user: StudentEntity }>();
+        return req.user;
     },
 );
