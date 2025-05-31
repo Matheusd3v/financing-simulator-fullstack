@@ -1,6 +1,6 @@
 import { TransactionHost } from '@nestjs-cls/transactional';
 import { TransactionalAdapterPrisma } from '@nestjs-cls/transactional-adapter-prisma';
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaClient } from '@root/generated/prisma/client';
 import { IFindOptionsStudentDto } from '@application/modules/students/dtos/find-options.dto';
 import { StudentEntity } from '@application/modules/students/entities/student.entity';
@@ -15,6 +15,18 @@ export class StudentPostgresqlRepository implements StudentRepository {
             TransactionalAdapterPrisma<PrismaClient>
         >,
     ) {}
+
+    public async update(entity: StudentEntity): Promise<void> {
+        await this.prismaService.tx.student.update({
+            data: {
+                name: entity.name,
+                lastName: entity.lastName,
+                email: entity.getEmail(),
+                password: entity.getPassword(),
+            },
+            where: { id: entity.getId() },
+        });
+    }
 
     public async save(entity: StudentEntity): Promise<StudentEntity> {
         const saved = await this.prismaService.tx.student.create({
