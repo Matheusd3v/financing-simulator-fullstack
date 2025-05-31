@@ -9,6 +9,7 @@ import { TransactionalAdapterPrisma } from '@nestjs-cls/transactional-adapter-pr
 import { PrismaPGService } from '../infrastructure/database/sql/prisma/prisma-pg.service';
 import { CryptoModule } from '../infrastructure/crypto/crypto.module';
 import { StudentModule } from './modules/students/student.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
     imports: [
@@ -27,7 +28,8 @@ import { StudentModule } from './modules/students/student.module';
             ],
         }),
         CryptoModule,
-        StudentModule
+        StudentModule,
+        AuthModule,
     ],
     controllers: [AppController],
     providers: [AppService],

@@ -1,8 +1,14 @@
-import { Module } from "@nestjs/common";
-import { ConfigModule, ConfigService } from "@nestjs/config";
-import { JwtModule } from "@nestjs/jwt";
+import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { JwtModule } from '@nestjs/jwt';
+import { LoginUseCase } from './usecases/login.usecase';
+import { StudentModule } from '../students/student.module';
+import { GenerateAccessTokenUseCase } from './usecases/generate-acces-token.usecase';
+import { AuthController } from './controllers/auth.controller';
+import { CryptoModule } from '@root/src/infrastructure/crypto/crypto.module';
 
 @Module({
+    controllers: [AuthController],
     imports: [
         JwtModule.registerAsync({
             imports: [ConfigModule],
@@ -11,6 +17,9 @@ import { JwtModule } from "@nestjs/jwt";
             }),
             inject: [ConfigService],
         }),
-    ]
+        StudentModule,
+        CryptoModule,
+    ],
+    providers: [LoginUseCase, GenerateAccessTokenUseCase],
 })
 export class AuthModule {}
