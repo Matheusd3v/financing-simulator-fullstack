@@ -10,6 +10,7 @@ import { PrismaPGService } from '../infrastructure/database/sql/prisma/prisma-pg
 import { CryptoModule } from '../infrastructure/crypto/crypto.module';
 import { StudentModule } from './modules/students/student.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { FinancingSimulatorModule } from './modules/financing-simulators/financing-simulator.module';
 
 @Module({
     imports: [
@@ -30,6 +31,7 @@ import { AuthModule } from './modules/auth/auth.module';
         CryptoModule,
         StudentModule,
         AuthModule,
+        FinancingSimulatorModule,
     ],
     controllers: [AppController],
     providers: [AppService],
