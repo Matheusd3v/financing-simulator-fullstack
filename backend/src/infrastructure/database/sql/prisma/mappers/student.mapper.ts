@@ -12,7 +12,8 @@ export class StudentMap {
         student.setEmail(data.email);
         student.name = data.name;
         student.lastName = data.lastName;
+        student.isActive = data.isActive;
 
-        return student
+        return student;
     }
 }
