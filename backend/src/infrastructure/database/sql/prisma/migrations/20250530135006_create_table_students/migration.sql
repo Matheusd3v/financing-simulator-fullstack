@@ -4,7 +4,7 @@ CREATE TABLE "students" (
     "uuid" UUID NOT NULL,
     "email" VARCHAR(255) NOT NULL,
     "name" VARCHAR(25) NOT NULL,
-    "lastName" VARCHAR(255) NOT NULL,
+    "last_name" VARCHAR(255) NOT NULL,
     "password" VARCHAR NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
