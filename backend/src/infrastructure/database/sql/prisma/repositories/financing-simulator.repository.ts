@@ -18,6 +18,36 @@ export class FinancingSimulatorPostgresqlRepository
         >,
     ) {}
 
+    public async delete(id: number): Promise<void> {
+        await this.prismaService.tx.financingSimulator.delete({
+            where: { id },
+        });
+    }
+
+    public async update(entity: FinancingSimulatorEntity): Promise<void> {
+        await this.prismaService.tx.financingSimulator.update({
+            where: { id: entity.getId() },
+            data: {
+                monthlyInstallment: entity.getMonthlyInstallment(),
+                monthlyInterest: entity.getMonthlyInterest(),
+                installments: entity.getInstallments(),
+                deletedAt: entity.getDeletedAt(),
+                total: entity.getTotal(),
+            },
+        });
+    }
+
+    public async findOne(
+        args: IFindOptionsFinancingSimulatorDto,
+    ): Promise<FinancingSimulatorEntity | null> {
+        const simulation =
+            await this.prismaService.tx.financingSimulator.findFirst({
+                where: FinancingSimulatorBuilder.build(args)?.where,
+            });
+        if (!simulation) return null;
+        return FinancingSimulatorMap.fromDB(simulation);
+    }
+
     public async save(
         entity: FinancingSimulatorEntity,
     ): Promise<FinancingSimulatorEntity> {

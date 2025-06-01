@@ -7,6 +7,10 @@ export class FinancingSimulatorBuilder {
 
         if (!dto?.where) return { where };
 
+        where.deletedAt = {
+            equals: null,
+        };
+
         if (dto?.where.installments) {
             where.installments = dto.where.installments;
         }
@@ -17,6 +21,16 @@ export class FinancingSimulatorBuilder {
 
         if (dto?.where?.studentId) {
             where.studentId = dto.where.studentId;
+        }
+
+        if (dto?.where?.uuid) {
+            where.uuid = dto.where.uuid;
+        }
+
+        if (dto?.where?.deletedAt) {
+            where.deletedAt = {
+                not: null,
+            };
         }
 
         if (dto?.where?.createdAt) {

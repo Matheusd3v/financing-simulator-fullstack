@@ -7,4 +7,9 @@ export interface FinancingSimulatorRepository {
         args: IFindOptionsFinancingSimulatorDto,
     ): Promise<FinancingSimulatorEntity[]>;
     count(args: IFindOptionsFinancingSimulatorDto): Promise<number>;
+    findOne(
+        args: IFindOptionsFinancingSimulatorDto,
+    ): Promise<FinancingSimulatorEntity | null>;
+    update(entity: FinancingSimulatorEntity): Promise<void>;
+    delete(id: number): Promise<void>;
 }
