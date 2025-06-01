@@ -40,10 +40,11 @@ export const variantStyles = {
   `,
   outline: css`
     background: transparent;
-    border: 1.5px solid ${({ theme }) => theme.primary};
-    color: ${({ theme }) => theme.primary};
+    border: 1.5px solid ${({ theme }) => theme.white};
+    color: ${({ theme }) => theme.white};
     &:hover:not(:disabled) {
       background: ${({ theme }) => theme.secondary};
+      color: ${({ theme }) => theme.primary};
     }
     &:focus {
       outline: none;
