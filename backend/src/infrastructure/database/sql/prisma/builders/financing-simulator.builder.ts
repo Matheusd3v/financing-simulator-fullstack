@@ -21,15 +21,16 @@ export class FinancingSimulatorBuilder {
 
         if (dto?.where?.createdAt) {
             const startOfDay = new Date(dto.where.createdAt);
-            startOfDay.setHours(0, 0, 0, 0);
+            startOfDay.setUTCHours(0, 0, 0, 0);
 
             const endOfDay = new Date(dto.where.createdAt);
-            endOfDay.setHours(23, 59, 59, 999);
-
+            endOfDay.setUTCHours(23, 59, 59, 999);
             where.createdAt = {
                 gte: startOfDay,
                 lte: endOfDay,
             };
         }
+
+        return { where };
     }
 }
