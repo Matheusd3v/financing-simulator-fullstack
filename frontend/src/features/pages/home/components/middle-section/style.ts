@@ -11,6 +11,7 @@ export const Section = styled.section`
     flex-direction: column;
     padding: 50px;
     box-sizing: border-box;
+    margin-bottom: 10px;
 
     .financing-cards-container {
         display: flex;
@@ -27,6 +28,7 @@ export const Section = styled.section`
     }
 
     @media (max-width: 991px) {
+        height: auto;
         .financing-cards-container {
             flex-direction: column;
             align-items: center;
