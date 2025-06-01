@@ -7,15 +7,16 @@ html {
 
 body {
   margin: 0;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
 }
 
 main {
   display: block;
 }
 
-h1 {
+h1, h2, h3 {
   font-size: 2em;
-  margin: 0.67em 0;
+  margin: 0;
 }
 
 hr {
@@ -37,7 +38,7 @@ strong {
 code,
 kbd,
 samp {
-  font-family: monospace, monospace;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
   font-size: 1em;
 }
 
