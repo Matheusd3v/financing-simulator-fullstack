@@ -10,8 +10,11 @@ const TopSection = () => {
                 sua carreira
             </p>
 
-            <Button variant="secondary">Simular financiamento</Button>
-            
+            <div className="top-section-btn-container">
+                <Button variant="secondary">Simular financiamento</Button>
+
+                <Button variant="outline">Área do cliente</Button>
+            </div>
         </Section>
     );
 };

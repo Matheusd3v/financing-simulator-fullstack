@@ -16,4 +16,32 @@ export const Section = styled.section`
         font-size: 1.25rem;
         line-height: 1.75rem;
     }
+
+    button {
+        margin-left: 20px;
+    }
+
+    .top-section-btn-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    @media (max-width: 991px) {
+        height: 500px;
+    }
+
+    @media (max-width: 400px) {
+        .top-section-btn-container {
+            justify-content: center;
+            flex-direction: column;
+            
+            button {
+                margin-bottom: 20px;
+            }
+
+        }
+
+        height: 600px;
+    }
 `;
