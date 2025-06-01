@@ -1,8 +1,13 @@
 import {
     Body,
     Controller,
+    Delete,
     Get,
+    HttpCode,
     HttpStatus,
+    Param,
+    ParseUUIDPipe,
+    Patch,
     Post,
     Query,
     UseGuards,
@@ -17,6 +22,9 @@ import { CreateSimulationUseCase } from '../usecases/create-simulation.usecase';
 import { ListSimulationsPaginateDto } from '../dtos/list-simulations-request.dto';
 import { RetrieveStudentSimulationsUseCase } from '../usecases/retrieve-student-simulations.usecase';
 import { SimulationPaginatedDto } from '../dtos/simulations-paginated.dto';
+import { DeleteSimulationUseCase } from '../usecases/delete-simulation.usecase';
+import { UpdateSimulationDto } from '../dtos/update-simulation.dto';
+import { UpdateSimulationUseCase } from '../usecases/update-simulation.usecase';
 
 @ApiTags('Financing Simulator')
 @Controller()
@@ -24,6 +32,8 @@ export class FinancingSimulatorController {
     constructor(
         private readonly createSimulationUseCase: CreateSimulationUseCase,
         private readonly retrieveStudentSimulationsUseCase: RetrieveStudentSimulationsUseCase,
+        private readonly deleteSimulationUseCase: DeleteSimulationUseCase,
+        private readonly updateSimulationUseCase: UpdateSimulationUseCase,
     ) {}
 
     @Post('/simulations')
@@ -54,5 +64,37 @@ export class FinancingSimulatorController {
             studentId: student.getId(),
         });
         return responde;
+    }
+
+    @Delete('/simulations/:uuid')
+    @UseGuards(AuthGuard('jwt'))
+    @HttpCode(HttpStatus.NO_CONTENT)
+    @ApiResponse({
+        status: HttpStatus.NO_CONTENT,
+    })
+    async deleteSimulation(
+        @GetUserAuth() student: StudentEntity,
+        @Param('uuid', new ParseUUIDPipe({ version: '4' }))
+        uuid: string,
+    ) {
+        await this.deleteSimulationUseCase.execute({
+            studentId: student.getId(),
+            uuid,
+        });
+    }
+
+    @Patch('/simulations/:uuid')
+    @UseGuards(AuthGuard('jwt'))
+    @HttpCode(HttpStatus.NO_CONTENT)
+    async updateSimulation(
+        @Body() body: UpdateSimulationDto,
+        @GetUserAuth() student: StudentEntity,
+        @Param('uuid', new ParseUUIDPipe({ version: '4' })) uuid: string,
+    ) {
+        await this.updateSimulationUseCase.execute({
+            ...body,
+            studentId: student.getId(),
+            uuid,
+        });
     }
 }
