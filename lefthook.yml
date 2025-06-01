@@ -1,6 +1,6 @@
 pre-commit:
   jobs:
-    - name: "Execução do ESLint ❗"
+    - name: "Execução do ESLint ❗ (BACKEND)"
       run: npx eslint --fix {staged_files}
       root: "backend/"
       glob:
@@ -8,7 +8,7 @@ pre-commit:
         - "*.js"
       stage_fixed: true
 
-    - name: "Execução do Prettier ✨"
+    - name: "Execução do Prettier ✨ (BACKEND)"
       run: npx prettier --write {staged_files}
       root: "backend/"      
       glob:
@@ -16,8 +16,30 @@ pre-commit:
         - "*.js"
       stage_fixed: true
 
+    - name: "Execução do ESLint ❗ (FRONTEND)"
+      run: npx eslint --fix {staged_files}
+      root: "frontend/"
+      glob:
+        - "*.ts"
+        - "*.js"
+        - "*.tsx"
+      stage_fixed: true
+
+    - name: "Execução do Prettier ✨ (FRONTEND)"
+      run: npx prettier --write {staged_files}
+      root: "frontend/"      
+      glob:
+        - "*.ts"
+        - "*.js"
+        - "*.tsx"        
+      stage_fixed: true      
+
 commit-msg:
   commands:
-    Validação de commit 📃:
+    Validação de commit 📃 (BACKEND):
       root: "backend/"      
       run: npx commitlint --edit {1}
+
+    Validação de commit 📃 (FRONTEND):
+      root: "frontend/"      
+      run: npx commitlint --edit {1}      
