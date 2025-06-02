@@ -8,22 +8,22 @@ import {
 } from "lucide-react";
 import { CardContainer } from "./style";
 import { useState } from "react";
+import type { ISimulation } from "../../../../../services/types/simulation.type";
 
 type CardProps = {
-    total: string;
-    installments: number;
-    monthlyInterest: string;
-    monthlyInstallment: string;
-    createdAt: string;
+    simulation: ISimulation;
+    onEdit(simulation: ISimulation): void;
+    onDelete(id: string): Promise<void>
 };
 
-function SimulationCard({
-    createdAt,
-    installments,
-    monthlyInstallment,
-    monthlyInterest,
-    total,
-}: CardProps) {
+function SimulationCard({ onEdit, simulation, onDelete }: CardProps) {
+    const {
+        total,
+        installments,
+        monthlyInterest,
+        monthlyInstallment,
+        createdAt,
+    } = simulation;
     const [showDetails, setShowDetails] = useState(false);
     const formatCurrency = (value: number) => {
         return new Intl.NumberFormat("pt-BR", {
@@ -41,18 +41,19 @@ function SimulationCard({
         });
         return formatted;
     };
+
     return (
-        <CardContainer $isExpanded={showDetails}> 
+        <CardContainer $isExpanded={showDetails}>
             <div className="simulation-icons">
                 <button onClick={() => setShowDetails(!showDetails)}>
                     <EyeIcon size={18} />
                 </button>
 
-                <button>
+                <button onClick={() => onEdit(simulation)}>
                     <EditIcon size={18} />
                 </button>
 
-                <button>
+                <button onClick={() => onDelete(simulation.uuid)}>
                     <TrashIcon size={18} />
                 </button>
             </div>
@@ -80,7 +81,7 @@ function SimulationCard({
                             <PercentIcon size={16} />
                             Taxa de juros
                         </div>
-                        <p> {monthlyInterest}% a.a</p>
+                        <p> {+monthlyInterest * 100}% a.m</p>
                     </span>
                     <span>
                         <div>

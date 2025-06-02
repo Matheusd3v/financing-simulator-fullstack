@@ -76,8 +76,8 @@ export const CardContainer = styled.div<{ $isExpanded?: boolean }>`
     }
 
     .simulation-details {
-         position: absolute; /* ✅ Remove do fluxo normal */
-        top: 98%; /* ✅ Posiciona abaixo do card */
+         position: absolute;
+        top: 98%;
         left: 0;
         right: 0;
         background-color: ${({ theme }) => theme.white};
@@ -95,7 +95,7 @@ export const CardContainer = styled.div<{ $isExpanded?: boolean }>`
         align-items: center;
         padding: 25px;
         box-sizing: border-box;
-                z-index: 20; /* ✅ Fica sobre outros cards */
+                z-index: 20; 
 
 
         span {
