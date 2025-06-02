@@ -1,20 +1,43 @@
-version: '3.8'
+version: "3.8"
 
 services:
+  react:
+    container_name: frontend-financing-simulator-prod
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: http://localhost:3000/api
+    ports:
+      - 8080:80
+    environment:
+      - VITE_API_URL=http://localhost:3000/api
+    depends_on:
+      nodejs:
+        condition: service_started
+    restart: unless-stopped
+
+
   nodejs:
     container_name: api-financing-simulator-prod
-    build: 
+    build:
       context: ./backend
       dockerfile: Dockerfile
     ports:
       - 3000:3000
     expose:
       - 3000
-    env_file:
-      - ./backend/.env
+    environment:
+      - LEFTHOOK=1
+      - PORT=3000
+      - JWT_SECRET=d3ddcb0c
+      - JWT_EXPIRATION=5m
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/alume_db?schema=public
     depends_on:
-      - postgres
+      postgres:
+        condition: service_started
     command: sh -c "npm run start:docker"
+    restart: unless-stopped
 
   postgres:
     container_name: alume_db_prod
@@ -27,6 +50,7 @@ services:
       POSTGRES_DB: alume_db
     volumes:
       - pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
 
 volumes:
   pgdata:
