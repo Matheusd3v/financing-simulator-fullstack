@@ -7,6 +7,7 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import Button from "../../../components/button";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { ROUTES } from "../../../routes/constants";
 
 type CreateStudentFormProps = ServiceProps["Student"]["Form"];
 
@@ -17,7 +18,7 @@ const Register = () => {
         formState: { errors },
         reset,
     } = useForm<CreateStudentFormProps>({
-        resolver: Services.Student.resolver,
+        resolver: Services.Student.resolver.create,
     });
     const navigate = useNavigate();
 
@@ -28,7 +29,7 @@ const Register = () => {
                 if (response.success) {
                     reset();
                     toast.success("Estudante criado com sucesso!");
-                    navigate("/");
+                    navigate(ROUTES.auth.login);
                 }
             })
             .catch((e) => {
