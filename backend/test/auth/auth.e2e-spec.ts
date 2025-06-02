@@ -10,6 +10,15 @@ import { CryptoRepository } from '@root/src/infrastructure/crypto/crypto.reposit
 import { AppModule } from '@root/src/application/app.module';
 import { StudentFactory } from '../factory/student.factory';
 
+interface LoginResponse {
+    token: string;
+    user: {
+        uuid: string;
+        name: string;
+        email: string;
+    };
+}
+
 describe('Auth Integration Tests', () => {
     let app: INestApplication<App>;
     let studentRepository: StudentRepository;
@@ -48,7 +57,10 @@ describe('Auth Integration Tests', () => {
 
         expect(response.statusCode).toBe(HttpStatus.OK);
         expect(response.body).toHaveProperty('token');
-        expect(response.body).toHaveProperty('uuid', student.getUuid());
+        expect(response.body).toHaveProperty('user');
+        const responseBody = response.body as LoginResponse;
+        if (!responseBody?.user) return;
+        expect(responseBody.user).toHaveProperty('uuid', student.getUuid());
     });
 
     it('Should throw error when try login with invalid credentials', async () => {
