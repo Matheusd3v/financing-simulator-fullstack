@@ -3,17 +3,24 @@ import Button from "../../../components/button";
 import { Container } from "../../../style/container";
 import { DashboardContainer } from "./style";
 import SimulationCard from "./components/simulationCard";
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import type { ISimulation } from "../../../services/types/simulation.type";
 import { Services } from "../../../services/data";
 import Pagination from "../../../components/pagination";
+import EditSimulationModal from "./components/editSimulationModal";
+import CreateSimulationModal from "./components/createSimulationModal";
+import { toast } from "react-toastify";
 
 function Dashboard() {
     const [simulations, setSimulations] = useState<ISimulation[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
-    const itemsPerPage = 6;
+    const [simulationModal, setSimulationModal] = useState<ISimulation | null>(
+        null
+    );
+    const [createModal, setCreateModal] = useState(false);
+    const itemsPerPage = 8;
 
     const fetchSimulations = async (page: number) => {
         try {
@@ -23,9 +30,9 @@ function Dashboard() {
                 limit: itemsPerPage,
             });
 
-            setSimulations(response.data || response); 
+            setSimulations(response.data || response);
             setTotalPages(
-                response.total || Math.ceil(response.total / itemsPerPage)
+                response.lastPage || Math.ceil(response.lastPage / itemsPerPage)
             );
         } catch (error) {
             console.error("Erro ao carregar simulações:", error);
@@ -34,7 +41,7 @@ function Dashboard() {
         }
     };
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         fetchSimulations(currentPage);
     }, [currentPage]);
 
@@ -46,12 +53,26 @@ function Dashboard() {
         });
     };
 
+    const closeModal = () => {
+        setSimulationModal(null);
+    };
+
+    const onEdit = (simulation: ISimulation) => {
+        setSimulationModal(simulation);
+    };
+
+    const deleteSimulation = async (uuid: string) => {
+        await Services.Simulation.api.delete(uuid);
+        toast.success("Simulação excluída!");
+        await fetchSimulations(currentPage);
+    };
+
     return (
         <Container>
             <DashboardContainer>
                 <div className="dashboard-header">
                     <h1>Minhas Simulações</h1>
-                    <Button>
+                    <Button onClick={() => setCreateModal(!createModal)}>
                         <PlusIcon size={16} />
                         Nova Simulação
                     </Button>
@@ -63,14 +84,10 @@ function Dashboard() {
                     ) : simulations.length > 0 ? (
                         simulations.map((simulation) => (
                             <SimulationCard
-                                createdAt={simulation.createdAt}
-                                installments={simulation.installments}
-                                monthlyInstallment={
-                                    simulation.monthlyInstallment
-                                }
-                                monthlyInterest={simulation.monthlyInterest}
-                                total={simulation.total}
+                                simulation={simulation}
                                 key={simulation.uuid}
+                                onEdit={onEdit}
+                                onDelete={deleteSimulation}
                             />
                         ))
                     ) : (
@@ -83,6 +100,19 @@ function Dashboard() {
                         currentPage={currentPage}
                         totalPages={totalPages}
                         onPageChange={handlePageChange}
+                    />
+                )}
+
+                {simulationModal && (
+                    <EditSimulationModal
+                        onClose={closeModal}
+                        simulation={simulationModal}
+                    />
+                )}
+
+                {createModal && (
+                    <CreateSimulationModal
+                        onClose={() => setCreateModal(!createModal)}
                     />
                 )}
             </DashboardContainer>
