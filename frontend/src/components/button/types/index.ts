@@ -1,4 +1,3 @@
-// src/components/Button.tsx
 import React from "react";
 import { css } from "styled-components";
 
@@ -10,7 +9,8 @@ export type ButtonProps = {
   fullWidth?: boolean;
   disabled?: boolean;
   className?: string;
-  size?: "max" | "medium" | "small"
+  size?: "max" | "medium" | "small";
+  ref?: React.RefObject<HTMLButtonElement | null>
 };
 
 export const variantStyles = {

@@ -9,7 +9,8 @@ const Button: React.FC<ButtonProps> = ({
   fullWidth = false,
   disabled = false,
   className = "",
-  size = 'max'
+  size = 'max',
+  ref
 }) => {
   return (
     <StyledButton
@@ -20,6 +21,7 @@ const Button: React.FC<ButtonProps> = ({
       disabled={disabled}
       className={className}
       onClick={onClick}
+      ref={ref}
     >
       {children}
     </StyledButton>
