@@ -1,15 +1,20 @@
-import { ThemeProvider } from 'styled-components'
-import { mainTheme } from './style/theme';
-import Navbar from './components/navbar';
-import Home from './features/pages/home';
+import { ThemeProvider } from "styled-components";
+import { mainTheme } from "./style/theme";
+import { RouterProvider } from "./routes";
+import { Context } from "./contexts";
+import { ToastContainer } from "react-toastify";
 
 function App() {
-  return (
-    <ThemeProvider theme={mainTheme}>
-      <Navbar/>
-      <Home/>
-    </ThemeProvider>
-  )
+    return (
+        <>
+            <ToastContainer />
+            <ThemeProvider theme={mainTheme}>
+                <Context.AuthProvider>
+                    <RouterProvider />
+                </Context.AuthProvider>
+            </ThemeProvider>
+        </>
+    );
 }
 
-export default App
+export default App;
