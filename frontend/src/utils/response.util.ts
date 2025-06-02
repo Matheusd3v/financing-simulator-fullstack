@@ -52,8 +52,6 @@ export async function handleResponse<T, E = DefaultResponseProps>(
 
             return { error: apiError, success: false };
         }
-
-        // Para erros não-Axios (network, timeout, etc.)
         const networkError = createApiError<E>(
             { message: "Network or unknown error" } as E,
             0,
