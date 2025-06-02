@@ -27,7 +27,6 @@ const Login = () => {
     const submit: SubmitHandler<LoginFormProps> = (formData) => {
         handleLogin(formData)
             .then((response) => {
-                console.log(response);
                 if (response?.token) {
                     reset();
                     navigate("/dashboard");
