@@ -1,15 +1,27 @@
-import styled from "styled-components"
+import styled from "styled-components";
 
-export const CardStyle =  styled.nav`
+export const CardStyle = styled.nav`
     height: 60px;
     width: 100vw;
     background-color: ${({ theme }) => theme.primary};
-    color: ${({ theme }) => theme.white} ;
+    color: ${({ theme }) => theme.white};
     padding: 10px 40px;
     display: flex;
     box-sizing: border-box;
     align-items: center;
     justify-content: space-between;
+    
+    a {
+        all: unset;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    p {
+        margin-left: 10px;
+        font-size: 1.25rem;
+    }
 
     .logo-container {
         font-weight: 700;
@@ -17,11 +29,5 @@ export const CardStyle =  styled.nav`
         display: flex;
         align-items: center;
         justify-content: flex-start;
-
-        p {
-            margin-left: 15px;
-            font-size: 1.25rem;
-        }
-
     }
-`
+`;
