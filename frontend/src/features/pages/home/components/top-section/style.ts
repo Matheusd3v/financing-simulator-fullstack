@@ -12,9 +12,17 @@ export const Section = styled.section`
     padding: 50px;
     box-sizing: border-box;
 
+    .home-top-p {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 20px 0;
+    }
+
     p {
         font-size: 1.25rem;
         line-height: 1.75rem;
+        margin: 0
     }
 
     button {
@@ -23,8 +31,16 @@ export const Section = styled.section`
 
     .top-section-btn-container {
         width: 100%;
+        max-width: 350px;
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
+        a {
+            text-decoration: none;            
+        }
+
+        svg {
+            margin-right: 5px;
+        }
     }
 
     @media (max-width: 991px) {

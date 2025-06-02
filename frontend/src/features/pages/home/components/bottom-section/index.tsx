@@ -1,5 +1,7 @@
+import { Link } from "react-router-dom";
 import Button from "../../../../../components/button";
 import { Section } from "./style";
+import { ROUTES } from "../../../../../routes/constants";
 
 const BottomSection = () => {
     return (
@@ -10,7 +12,9 @@ const BottomSection = () => {
                     Faça uma simulação agora e descubra como podemos ajudar você
                     a alcançar seus objetivos educacionais
                 </p>
-                <Button size="max">Simular agora</Button>
+                <Link to={ROUTES.register}>
+                    <Button size="max">Simular agora</Button>
+                </Link>
             </div>
         </Section>
     );

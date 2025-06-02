@@ -22,20 +22,18 @@ const MiddleSection = () => {
                     <div className="financing-card-icon">
                         <TrendingUpIcon size={24} />
                     </div>
-                    <h3>Educação acessível</h3>
+                    <h3>Processo simplificado</h3>
                     <p>
-                        Taxas de juros competitivas e prazos flexíveis para
-                        tornar sua formação possível
+                       Simulação online personalizada e aprovação rápida para começar seus estudos
                     </p>
                 </ReasonCard>
                 <ReasonCard>
                     <div className="financing-card-icon">
                         <ShieldIcon size={24} />
                     </div>
-                    <h3> Processo seguro</h3>
+                    <h3> Suporte completo</h3>
                     <p>
-                        Taxas de juros competitivas e prazos flexíveis para
-                        tornar sua formação possível
+                        Acompanhamento durante toda sua jornada acadêmica com nossa equipe especializada
                     </p>
                 </ReasonCard>
             </div>
