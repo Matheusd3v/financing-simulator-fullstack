@@ -85,16 +85,17 @@ export class FinancingSimulatorController {
 
     @Patch('/simulations/:uuid')
     @UseGuards(AuthGuard('jwt'))
-    @HttpCode(HttpStatus.NO_CONTENT)
+    @HttpCode(HttpStatus.OK)
     async updateSimulation(
         @Body() body: UpdateSimulationDto,
         @GetUserAuth() student: StudentEntity,
         @Param('uuid', new ParseUUIDPipe({ version: '4' })) uuid: string,
     ) {
-        await this.updateSimulationUseCase.execute({
+        const response = await this.updateSimulationUseCase.execute({
             ...body,
             studentId: student.getId(),
             uuid,
         });
+        return response;
     }
 }

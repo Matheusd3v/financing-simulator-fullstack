@@ -35,5 +35,9 @@ export class UpdateSimulationUseCase {
 
         simulation.calculateMonthlyInstallment();
         await this.financingSimulatorRepository.update(simulation);
+
+        return {
+            monthlyInstallment: simulation.getMonthlyInstallment(),
+        };
     }
 }
