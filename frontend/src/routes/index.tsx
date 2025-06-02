@@ -4,6 +4,7 @@ import {
     Route,
     RouterProvider as Provider,
     Outlet,
+    Navigate,
 } from "react-router-dom";
 import Home from "../features/pages/home";
 import { Suspense } from "react";
@@ -15,8 +16,15 @@ import Login from "../features/pages/login";
 import { ProtectedRoute } from "./protectedRoute";
 import Dashboard from "../features/pages/dashboard";
 import Profile from "../features/pages/profile";
+import { hook } from "../contexts";
 
 function Layout() {
+    const { isAuthenticated } = hook.useAuth();
+
+    if (isAuthenticated) {
+        return <Navigate to={ROUTES.dashboard} replace />;
+    }
+
     return (
         <>
             <Navbar />
