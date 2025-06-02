@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - 'backend/**'
-      - '!frontend/**''
+      - '!frontend/**'
     branches:
       - main
       - develop
