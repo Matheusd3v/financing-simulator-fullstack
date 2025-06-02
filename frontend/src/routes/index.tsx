@@ -14,6 +14,7 @@ import Navbar from "../components/navbar";
 import Login from "../features/pages/login";
 import { ProtectedRoute } from "./protectedRoute";
 import Dashboard from "../features/pages/dashboard";
+import Profile from "../features/pages/profile";
 
 function Layout() {
     return (
@@ -26,35 +27,38 @@ function Layout() {
 
 const router = createBrowserRouter(
     createRoutesFromElements(
-        <Route path="/" element={<Layout />}>
-            <Route
-                index
-                element={
-                    <PageTransition>
-                        <Home />
-                    </PageTransition>
-                }
-            />
-            <Route
-                path={ROUTES.register}
-                element={
-                    <PageTransition>
-                        <Register />
-                    </PageTransition>
-                }
-            />
-            <Route
-                path={ROUTES.auth.login}
-                element={
-                    <PageTransition>
-                        <Login />
-                    </PageTransition>
-                }
-            />
+        <>
+            <Route path="/" element={<Layout />}>
+                <Route
+                    index
+                    element={
+                        <PageTransition>
+                            <Home />
+                        </PageTransition>
+                    }
+                />
+                <Route
+                    path={ROUTES.register}
+                    element={
+                        <PageTransition>
+                            <Register />
+                        </PageTransition>
+                    }
+                />
+                <Route
+                    path={ROUTES.auth.login}
+                    element={
+                        <PageTransition>
+                            <Login />
+                        </PageTransition>
+                    }
+                />
+            </Route>
             <Route element={<ProtectedRoute />}>
                 <Route path={ROUTES.dashboard} element={<Dashboard />} />
+                <Route path={ROUTES.student.profile} element={<Profile />} />
             </Route>
-        </Route>
+        </>
     )
 );
 

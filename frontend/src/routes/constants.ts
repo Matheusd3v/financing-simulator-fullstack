@@ -4,5 +4,8 @@ export const ROUTES = {
     },
     simulation: '/simulation',
     register: '/register',
-    dashboard: 'dashboard'
+    dashboard: 'dashboard',
+    student: {
+        profile: '/profile'
+    }
 }
