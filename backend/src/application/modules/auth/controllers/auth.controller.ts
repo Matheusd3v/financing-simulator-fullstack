@@ -25,6 +25,12 @@ export class AuthController {
             studentUuid: student.getUuid(),
         });
 
-        return { token, uuid: student.getUuid() };
+        return {
+            token,
+            user: {
+                uuid: student.getUuid(),
+                name: student.name,
+            },
+        };
     }
 }
