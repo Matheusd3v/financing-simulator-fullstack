@@ -1,0 +1,40 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../../../../../generated/prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Student {
+  id          Int                   @id @default(autoincrement())
+  uuid        String                @unique() @default(uuid()) @db.Uuid()
+  email       String                @unique() @db.VarChar(255)
+  name        String                @db.VarChar(25)
+  lastName    String                @db.VarChar(255) @map("last_name")
+  password    String                @db.VarChar()
+  createdAt   DateTime              @default(now()) @map("created_at")
+  updatedAt   DateTime              @updatedAt @map("updated_at")
+  isActive    Boolean               @map("is_active") @default(true)  
+  simulators  FinancingSimulator[]
+
+  @@map("students")
+}
+
+model FinancingSimulator {
+  id                  Int         @id @default(autoincrement())
+  uuid                String      @unique() @default(uuid()) @db.Uuid()
+  total               Decimal     @db.Decimal(19,4)
+  installments        Int         
+  monthlyInterest     Decimal     @db.Decimal(5,4) @map("monthly_interest")
+  monthlyInstallment  Decimal     @db.Decimal(19,4) @map("monthly_installment_value")
+  studentId           Int         @map("student_id")     
+  student             Student     @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  createdAt           DateTime    @default(now()) @map("created_at")
+  updatedAt           DateTime    @updatedAt @map("updated_at")
+  deletedAt           DateTime?   @map("deleted_at")  
+
+  @@map("financing_simulators")  
+}
