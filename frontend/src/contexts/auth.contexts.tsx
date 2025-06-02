@@ -2,6 +2,7 @@ import { createContext, useContext, useState, type Dispatch, type SetStateAction
 import { Services, type ServiceProps } from "../services/data";
 import { storage } from "../utils/storage.util";
 import { ROUTES } from "../routes/constants";
+import { toast } from "react-toastify";
 
 type LoginCredentialProps = ServiceProps["AuthProps"]["LoginCredentialProps"];
 
@@ -31,6 +32,7 @@ interface AuthContextProps {
 const AuthContext = createContext({} as AuthContextProps);
 
 export function handleUnauthorized(route = ROUTES.auth.login) {
+    toast.info('Sessão Expirada! Faça o Login Novamente')
     window.location.href = route;
     storage.clear();
 }

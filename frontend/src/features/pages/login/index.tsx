@@ -10,7 +10,7 @@ import { LockIcon } from "lucide-react";
 import { hook } from "../../../contexts";
 import { toast } from "react-toastify";
 
-type LoginFormProps = ServiceProps["AuthProps"]["LoginCredentialProps"];
+export type LoginFormProps = ServiceProps["AuthProps"]["LoginCredentialProps"];
 
 const Login = () => {
     const {
