@@ -24,7 +24,9 @@ const TopSection = () => {
                     </Button>
                 </Link>
 
-                <Button variant="outline">Área do cliente</Button>
+                <Link to={ROUTES.auth.login}>
+                    <Button variant="outline">Área do cliente</Button>
+                </Link>
             </div>
         </Section>
     );
