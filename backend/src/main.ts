@@ -14,6 +14,9 @@ async function bootstrap() {
         new FastifyAdapter(),
     );
 
+    app.enableCors({
+        origin: '*',
+    });
     app.setGlobalPrefix('api');
     app.useGlobalPipes(
         new ValidationPipe({
@@ -21,8 +24,7 @@ async function bootstrap() {
             whitelist: true,
         }),
     );
-	app.useStaticAssets({ root: join(__dirname, '..', 'public') });
-
+    app.useStaticAssets({ root: join(__dirname, '..', 'public') });
 
     const config = new DocumentBuilder()
         .setVersion(process.env.npm_package_version ?? '1')
