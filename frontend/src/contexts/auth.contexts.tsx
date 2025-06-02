@@ -1,6 +1,7 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, type Dispatch, type SetStateAction } from "react";
 import { Services, type ServiceProps } from "../services/data";
 import { storage } from "../utils/storage.util";
+import { ROUTES } from "../routes/constants";
 
 type LoginCredentialProps = ServiceProps["AuthProps"]["LoginCredentialProps"];
 
@@ -8,12 +9,13 @@ export interface LoginResponseProps {
     token: string | null;
     user: {
         uuid: string | null;
+        name: string | null;
     };
 }
 
 const DEFAULT_USER_DATA: LoginResponseProps = {
     token: null,
-    user: { uuid: null },
+    user: { uuid: null, name: null },
 };
 
 interface AuthContextProps {
@@ -23,10 +25,15 @@ interface AuthContextProps {
         data: LoginCredentialProps
     ) => Promise<LoginResponseProps | undefined>;
     handleLogout(): void;
+    setUser: Dispatch<SetStateAction<LoginResponseProps>>;
 }
 
 const AuthContext = createContext({} as AuthContextProps);
 
+export function handleUnauthorized(route = ROUTES.auth.login) {
+    window.location.href = route;
+    storage.clear();
+}
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
     const userDataFromStorage = storage.get<LoginResponseProps>(
@@ -64,7 +71,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 data: user,
                 isAuthenticated: !!user?.token,
                 handleLogin,
-                handleLogout
+                handleLogout,
+                setUser
             }}
         >
             {children}
@@ -72,7 +80,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     );
 }
 
-
 export function useAuth() {
-  return useContext(AuthContext);
+    return useContext(AuthContext);
 }
