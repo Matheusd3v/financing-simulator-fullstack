@@ -36,6 +36,6 @@ export const storage = {
   },
 
   KEY:  {
-    TOKEN: 'token'
+    USER: 'alume:user'
   }
 };
