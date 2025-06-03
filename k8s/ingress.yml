@@ -1,0 +1,39 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: simulador-fin-ingress
+  namespace: simulador-fin
+  annotations:
+    cert-manager.io/issuer: letsencrypt-staging
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - simulador-fin.matheus-backend-dev.tech
+    - simulador-fin-api.matheus-backend-dev.tech
+    secretName: simulador-fin-tls
+  rules:
+
+  - host: simulador-fin.matheus-backend-dev.tech
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend-service
+            port:
+              number: 80
+
+  - host: simulador-fin-api.matheus-backend-dev.tech
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: fastify-api-service
+            port:
+              number: 80
