@@ -6,14 +6,12 @@ on:
       - 'backend/**'
       - '!frontend/**'
     branches:
-      - main
       - develop
   pull_request:
     paths:
       - 'backend/**'
     branches:
       - main
-      - develop
 
 env:
   DATABASE_URL: postgresql://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@localhost:5432/test?schema=public

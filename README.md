@@ -1,3 +1,4 @@
+
 # 🎓 EduFinance - Sistema de Simulação de Financiamento Estudantil
 
 Uma plataforma que conecta estudantes de medicina a financiamentos estudantis personalizados, permitindo cadastro, autenticação e simulação de financiamentos por meio de um dashboard interativo e moderno.
@@ -24,6 +25,7 @@ O EduFinance é composto por duas partes principais:
 * **JWT** (Autenticação com expiração de 5 minutos)
 * **Jest** (Testes unitários e de integração)
 
+
 ### Frontend
 
 * **React** com **TypeScript**
@@ -44,12 +46,13 @@ O EduFinance é composto por duas partes principais:
 * Docker
 * Docker Compose
 
+
 ### Como executar o projeto completo
 
 ```bash
 # Clone o repositório
-git clone https://github.com/seu-usuario/edufinance.git
-cd edufinance
+git clone git@github.com:Matheusd3v/financing-simulator-fullstack.git
+cd financing-simulator-fullstack
 
 # Execute com Docker Compose (na raiz do projeto)
 docker-compose up -d
@@ -103,6 +106,7 @@ npm run dev
 npm run build
 ```
 
+
 ---
 
 ## 📊 Funcionalidades Implementadas
@@ -115,6 +119,7 @@ npm run build
 * [x] Logout
 * [x] Interceptor para tratamento de tokens
 
+
 ### ✅ Simulações
 
 * [x] Criação de novas simulações
@@ -122,11 +127,13 @@ npm run build
 * [x] Histórico com paginação
 * [x] Edição e exclusão de simulações
 
+
 ### ✅ Perfil do Estudante
 
 * [x] Visualização dos dados cadastrais
 * [x] Edição de dados pessoais
 * [x] Validação de formulários
+
 
 ### ✅ Componentes Reutilizáveis
 
@@ -165,6 +172,7 @@ Onde:
 - n = número de parcelas
 ```
 
+
 ### Validações
 
 * **Valor total**: Mínimo R\$ 10,00
@@ -187,12 +195,26 @@ JWT_EXPIRES_IN="5m"
 PORT=3000
 ```
 
+
 ### Frontend (.env)
 
 ```env
 VITE_API_URL=http://localhost:3000/api
 ```
 
----
 
-<div align="center">⁂</div>
+
+## 🚢 Deploy em Kubernetes
+
+Este projeto está implantado usando **Kubernetes** para orquestração de contêineres.
+
+- **Frontend disponível em:**
+[https://simulador-fin.matheus-backend-dev.tech/](https://simulador-fin.matheus-backend-dev.tech/)
+- **Backend disponível em:**
+[https://simulador-fin-api.matheus-backend-dev.tech/](https://simulador-fin-api.matheus-backend-dev.tech/)
+- **Documentação da API (Swagger):**
+[https://simulador-fin.matheus-backend-dev.tech/api/doc](https://simulador-fin.matheus-backend-dev.tech/api/doc)
+
+Todos os manifestos e scripts de implantação estão disponíveis neste repositório.
+O acesso externo é realizado via Ingress e Cloudflare Tunnel, garantindo HTTPS em todos os serviços.
+

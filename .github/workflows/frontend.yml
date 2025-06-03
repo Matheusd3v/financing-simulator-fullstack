@@ -6,14 +6,12 @@ on:
       - 'frontend/**'
       - '!backend/**'
     branches:
-      - main
       - develop
   pull_request:
     paths:
       - 'frontend/**'
     branches:
       - main
-      - develop
 
 jobs:
   build:
