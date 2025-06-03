@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-simulador-fin
+  namespace: simulador-fin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend-simulador-fin
+  template:
+    metadata:
+      labels:
+        app: frontend-simulador-fin
+    spec:
+      containers:
+        - name: frontend-simulador-fin
+          image: matheusgomesa/financing-simulator-front:latest
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: "64Mi"
+            limits:
+              memory: "128Mi"
