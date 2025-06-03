@@ -24,4 +24,4 @@ ENV TZ=America/Sao_Paulo
 EXPOSE 3000
 USER node
 
-# CMD ["dumb-init", "node", "dist/main"] 
+CMD ["dumb-init", "node", "dist/main"] 
