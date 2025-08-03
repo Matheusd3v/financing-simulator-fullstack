@@ -11,9 +11,10 @@ import { toast } from "react-toastify";
 type CreateSimulationType = ServiceProps["Simulation"]["Props"];
 type CreateSimulationProps = {
     onClose(): void;
+    onSuccess(): void
 };
 
-function CreateSimulationModal({ onClose }: CreateSimulationProps) {
+function CreateSimulationModal({ onClose, onSuccess }: CreateSimulationProps) {
     const [monthlyInstallment, setmonthlyInstallment] = useState("");
     const {
         register,
@@ -28,6 +29,7 @@ function CreateSimulationModal({ onClose }: CreateSimulationProps) {
         );
         setmonthlyInstallment(monthlyInstallment);
         toast.success("Simulação salva!");
+        onSuccess()
 		onClose()
     };
 

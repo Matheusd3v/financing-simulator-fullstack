@@ -3,12 +3,14 @@ import Form from "../../../components/form";
 import { Services, type ServiceProps } from "../../../services/data";
 import { Container } from "../../../style/container";
 import { FormLoginContainer } from "./style";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Input } from "../../../components/Input";
 import Button from "../../../components/button";
 import { LockIcon } from "lucide-react";
 import { hook } from "../../../contexts";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
+import { ROUTES } from "../../../routes/constants";
 
 export type LoginFormProps = ServiceProps["AuthProps"]["LoginCredentialProps"];
 
@@ -25,16 +27,24 @@ const Login = () => {
     const { handleLogin } = hook.useAuth();
 
     const submit: SubmitHandler<LoginFormProps> = (formData) => {
-        handleLogin(formData)
-            .then((response) => {
-                if (response?.token) {
-                    reset();
-                    navigate("/dashboard");
-                } else {
-                    toast.error("Falha ao realizar login! Revise as credenciais.");
-                }
-            })
+        handleLogin(formData).then((response) => {
+            if (response?.token) {
+                reset();
+                navigate("/dashboard");
+            } else {
+                toast.error("Falha ao realizar login! Revise as credenciais.");
+            }
+        });
     };
+
+    const location = useLocation();
+
+    useEffect(() => {
+        const params = new URLSearchParams(location.search);
+        if (params.has(ROUTES.auth.unauthorized)) {
+            toast.info("Sessão Expirada! Faça o Login Novamente");
+        }
+    }, [location.search]);
 
     return (
         <Container>

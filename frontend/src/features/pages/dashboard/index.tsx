@@ -21,6 +21,9 @@ function Dashboard() {
     );
     const [createModal, setCreateModal] = useState(false);
     const itemsPerPage = 8;
+    // deixar paginação em um unico objeto
+    // react-query
+    // skeleton - transformar card & loading
 
     const fetchSimulations = async (page: number) => {
         try {
@@ -113,6 +116,7 @@ function Dashboard() {
                 {createModal && (
                     <CreateSimulationModal
                         onClose={() => setCreateModal(!createModal)}
+                        onSuccess={() => fetchSimulations(1)}
                     />
                 )}
             </DashboardContainer>
