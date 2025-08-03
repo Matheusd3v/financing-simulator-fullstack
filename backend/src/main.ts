@@ -1,3 +1,5 @@
+import '@opentelemetry/auto-instrumentations-node/register';
+
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './application/app.module';
 import {
