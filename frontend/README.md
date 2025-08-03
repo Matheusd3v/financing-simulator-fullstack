@@ -43,7 +43,7 @@ export default tseslint.config({
   plugins: {
     // Add the react-x and react-dom plugins
     'react-x': reactX,
-    'react-dom': reactDom,
+    'react-dom': reactDom
   },
   rules: {
     // other rules...
