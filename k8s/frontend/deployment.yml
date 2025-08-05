@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: frontend-simulador-fin
-          image: matheusgomesa/financing-simulator-front:latest
+          image: matheusgomesa/financing-simulator-front:$IMAGE_TAG
           ports:
             - containerPort: 80
           resources:

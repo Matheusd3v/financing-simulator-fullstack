@@ -1,4 +1,10 @@
-import { createContext, useContext, useState, type Dispatch, type SetStateAction } from "react";
+import {
+    createContext,
+    useContext,
+    useState,
+    type Dispatch,
+    type SetStateAction,
+} from "react";
 import { Services, type ServiceProps } from "../services/data";
 import { storage } from "../utils/storage.util";
 import { ROUTES } from "../routes/constants";
@@ -31,9 +37,11 @@ interface AuthContextProps {
 
 const AuthContext = createContext({} as AuthContextProps);
 
-export function handleUnauthorized(route = ROUTES.auth.login) {
-    toast.info('Sessão Expirada! Faça o Login Novamente')
-    window.location.href = route;
+export function handleUnauthorized() {
+    toast.info("Sessão Expirada! Faça o Login Novamente");
+    window.location.href = ROUTES.auth.login.concat(
+        `?${ROUTES.auth.unauthorized}`
+    );
     storage.clear();
 }
 
@@ -74,7 +82,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 isAuthenticated: !!user?.token,
                 handleLogin,
                 handleLogout,
-                setUser
+                setUser,
             }}
         >
             {children}
