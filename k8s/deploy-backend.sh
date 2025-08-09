@@ -1,5 +1,15 @@
 #!/bin/bash
 
+# Install kubectl if not present
+if ! command -v kubectl &> /dev/null; then
+    echo "Installing kubectl..."
+    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+    chmod +x kubectl
+    sudo mv kubectl /usr/local/bin/
+    echo "✅ kubectl installed"
+fi
+
+
 BASE_PATH="$(dirname "$0")"
 
 # Backend .env and secret creation (now going up one level to reach backend)
