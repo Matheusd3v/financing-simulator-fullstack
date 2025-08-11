@@ -19,14 +19,14 @@ TEMP_ENV_PATH="$BASE_PATH/tmp-env-stripped"
 echo "Creating .env file from environment variables..."
 cat << EOF > "$ENV_PATH"
 # API
-PORT=${PORT}
+PORT="${PORT}"
 
 # JWT
-JWT_SECRET=${JWT_SECRET}
-JWT_EXPIRATION=${JWT_EXPIRATION}
+JWT_SECRET="${JWT_SECRET}"
+JWT_EXPIRATION="${JWT_EXPIRATION}"
 
 # DATABASE
-DATABASE_URL=${DATABASE_URL}
+DATABASE_URL="${DATABASE_URL}"
 EOF
 
 echo "✅ .env file created at: $ENV_PATH"
