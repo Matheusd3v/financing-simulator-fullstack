@@ -45,6 +45,7 @@ jobs:
       - name: Atualiza tag da imagem no deployment
         run: |
           sed "s/\$IMAGE_TAG/${{ github.run_id }}/g" k8s/backend/deployment.yml > k8s/backend/deployment-temp.yml
+          mv k8s/backend/deployment-temp.yml k8s/backend/deployment.yml
 
       - name: Set script permissions
         run: chmod +x ./k8s/deploy-backend.sh
