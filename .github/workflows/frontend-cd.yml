@@ -58,7 +58,7 @@ jobs:
 
   deploy:
     runs-on: [self-hosted, k8s]
-    needs: build-and-push
+    needs: docker-build-push
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
