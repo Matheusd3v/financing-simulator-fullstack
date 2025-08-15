@@ -14,7 +14,7 @@ spec:
     type: RollingUpdate
     rollingUpdate:
       maxSurge: 2
-      maxUnavailable: 2
+      maxUnavailable: 0
   template:
     metadata:
       labels:
@@ -28,7 +28,7 @@ spec:
             - -c
             - |
               echo "🔄 Waiting for database to be ready..."
-              until cat .env && npx prisma migrate deploy; do
+              until npx prisma migrate deploy; do
                 echo "❌ Migration failed, retrying in 3s..."
                 sleep 3
               done

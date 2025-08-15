@@ -10,7 +10,7 @@ const BottomSection = () => {
                 <h3>Pronto para investir no seu futuro?</h3>
                 <p>
                     Faça uma simulação agora e descubra como podemos ajudar você
-                    a alcançar seus objetivos educacionais
+                    a alcançar seus objetivos educacionais.
                 </p>
                 <Link to={ROUTES.register}>
                     <Button size="max">Simular agora</Button>

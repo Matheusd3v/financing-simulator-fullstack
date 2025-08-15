@@ -8,6 +8,11 @@ spec:
   selector:
     matchLabels:
       app: frontend-simulador-fin
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 0      
   template:
     metadata:
       labels:

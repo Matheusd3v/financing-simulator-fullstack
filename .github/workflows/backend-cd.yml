@@ -35,20 +35,25 @@ jobs:
           push: true
           tags: matheusgomesa/financing-simulator:${{ github.run_id }}
 
-  # deploy:
-  #   runs-on: [self-hosted, k8s]
-  #   needs: docker-build-push
-  #   if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' || github.event_name == 'pull_request' && github.event.pull_request.merged == true }}
-  #   steps:
-  #     - name: Checkout repo
-  #       uses: actions/checkout@v4
+  deploy:
+    runs-on: [self-hosted, k8s]
+    needs: docker-build-push
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
-  #     - name: Atualiza tag da imagem no deployment
-  #       run: |
-  #         sed "s/\$IMAGE_TAG/${{ github.run_id }}/g" k8s/backend/deployment.yml > k8s/backend/deployment-temp.yml
+      - name: Atualiza tag da imagem no deployment
+        run: |
+          sed "s/\$IMAGE_TAG/${{ github.run_id }}/g" k8s/backend/deployment.yml > k8s/backend/deployment-temp.yml
+          mv k8s/backend/deployment-temp.yml k8s/backend/deployment.yml
 
-  #     - name: Set script permissions
-  #       run: chmod +x ./deploy-backend.sh
+      - name: Set script permissions
+        run: chmod +x ./k8s/deploy-backend.sh
 
-  #     - name: Deploy Backend
-  #       run: ./deploy-backend.sh
+      - name: Deploy Backend
+        env:
+          PORT: ${{ vars.PORT || '3000' }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          JWT_EXPIRATION: ${{ vars.JWT_EXPIRATION || '24h' }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: ./k8s/deploy-backend.sh
