@@ -11,9 +11,14 @@ type UpdateSimulationSchema = ServiceProps["Simulation"]["UpdateProp"];
 type EditModalProp = {
     onClose(): void;
     simulation: ISimulation;
+    fetchSimulations(page: number): Promise<void>;
 };
 
-function EditSimulationModal({ onClose, simulation }: EditModalProp) {
+function EditSimulationModal({
+    onClose,
+    simulation,
+    fetchSimulations,
+}: EditModalProp) {
     const [monthlyInstallment, setmonthlyInstallment] = useState("");
     const {
         register,
@@ -24,11 +29,16 @@ function EditSimulationModal({ onClose, simulation }: EditModalProp) {
         resolver: Services.Simulation.resolver.update,
     });
     const submit: SubmitHandler<UpdateSimulationSchema> = async (formData) => {
-        const { monthlyInstallment } = await Services.Simulation.api.update({
+        const payload = {
             ...formData,
             id: simulation.uuid,
-        });
+        }
+        if (formData.monthlyInterest) {
+            payload.monthlyInterest = formData.monthlyInterest /100
+        }
+        const { monthlyInstallment } = await Services.Simulation.api.update(payload);
         setmonthlyInstallment(monthlyInstallment);
+        await fetchSimulations(1);
     };
 
     const loadValues = () => {
@@ -67,9 +77,9 @@ function EditSimulationModal({ onClose, simulation }: EditModalProp) {
                     <Input
                         label="Total"
                         type="number"
-                        step="0.01" 
-                        min="10" 
-                        max="999999999" 
+                        step="0.01"
+                        min="10"
+                        max="999999999"
                         {...register("total", { valueAsNumber: true })}
                         error={errors?.total ? errors.total?.message : ""}
                     />

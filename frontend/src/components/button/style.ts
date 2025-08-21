@@ -19,7 +19,7 @@ export const StyledButton = styled.button<{
             width: 100%;
             display: block;
         `}
-  cursor: pointer;
+    cursor: pointer;
     opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
     cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
 `;
