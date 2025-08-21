@@ -3,7 +3,7 @@ import Form from "../../../components/form";
 import { Services, type ServiceProps } from "../../../services/data";
 import { Container } from "../../../style/container";
 import { FormLoginContainer } from "./style";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Input } from "../../../components/Input";
 import Button from "../../../components/button";
 import { LockIcon } from "lucide-react";
@@ -72,6 +72,11 @@ const Login = () => {
                         <LockIcon />
                         Entrar
                     </Button>
+
+                    <div>
+                        <span>Não tem uma conta ainda?</span>{" "}
+                        <Link to={ROUTES.register}>Registre-se aqui!</Link>
+                    </div>
                 </Form>
             </FormLoginContainer>
         </Container>

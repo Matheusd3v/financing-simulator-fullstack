@@ -24,6 +24,7 @@ function CreateSimulationModal({ onClose, onSuccess }: CreateSimulationProps) {
         resolver: Services.Simulation.resolver.create,
     });
     const submit: SubmitHandler<CreateSimulationType> = async (formData) => {
+        formData.monthlyInterest = +(formData.monthlyInterest/100).toFixed(2)
         const { monthlyInstallment } = await Services.Simulation.api.create(
             formData
         );

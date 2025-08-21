@@ -110,6 +110,7 @@ function Dashboard() {
                     <EditSimulationModal
                         onClose={closeModal}
                         simulation={simulationModal}
+                        fetchSimulations={fetchSimulations}
                     />
                 )}
 

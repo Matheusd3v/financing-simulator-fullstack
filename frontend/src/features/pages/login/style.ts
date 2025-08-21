@@ -20,4 +20,13 @@ export const FormLoginContainer = styled.div`
         justify-content: space-between;
         padding: 0 165px;
     }
+
+    span {
+        color: grey;
+    }
+
+    a {
+        text-decoration: none;
+        color: ${({ theme }) => theme.primary};
+    }
 `;

@@ -3,7 +3,6 @@ import { StudentEntity } from '../../students/entities/student.entity';
 import { CreateSimulationDto } from '../dtos/create-simulation.dto';
 import { FinancingSimulatorRepository } from '../repositorties/financing-simulator.repository';
 import { FinancingSimulatorEntity } from '../entities/financing-simulator.entity';
-import Decimal from 'decimal.js';
 
 @Injectable()
 export class CreateSimulationUseCase {
@@ -15,9 +14,9 @@ export class CreateSimulationUseCase {
     public async execute(student: StudentEntity, body: CreateSimulationDto) {
         const simulation = new FinancingSimulatorEntity();
 
-        simulation.setTotal(new Decimal(body.total));
+        simulation.setTotal(+body.total);
         simulation.setInstallments(body.installments);
-        simulation.setMonthlyInterest(new Decimal(body.monthlyInterest));
+        simulation.setMonthlyInterest(+body.monthlyInterest);
         simulation.calculateMonthlyInstallment();
         simulation.studentId = student.getId();
 
