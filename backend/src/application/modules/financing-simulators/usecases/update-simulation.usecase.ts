@@ -1,7 +1,6 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { FinancingSimulatorRepository } from '../repositorties/financing-simulator.repository';
 import { UpdateSimulationDto } from '../dtos/update-simulation.dto';
-import Decimal from 'decimal.js';
 
 @Injectable()
 export class UpdateSimulationUseCase {
@@ -22,7 +21,7 @@ export class UpdateSimulationUseCase {
         }
 
         if (body?.total) {
-            simulation.setTotal(new Decimal(body.total));
+            simulation.setTotal(+body.total);
         }
 
         if (body?.installments) {
@@ -30,7 +29,7 @@ export class UpdateSimulationUseCase {
         }
 
         if (body?.monthlyInterest) {
-            simulation.setMonthlyInterest(new Decimal(body.monthlyInterest));
+            simulation.setMonthlyInterest(+body.monthlyInterest);
         }
 
         simulation.calculateMonthlyInstallment();

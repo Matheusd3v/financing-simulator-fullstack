@@ -1,11 +1,9 @@
-import Decimal from 'decimal.js';
-
 interface FinancingSimulatorWhereOptions {
     id?: number;
     uuid?: string;
     createdAt?: Date;
     installments?: number;
-    total?: Decimal;
+    total?: number;
     studentId?: number;
     deletedAt?: boolean;
 }

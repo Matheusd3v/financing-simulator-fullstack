@@ -1,7 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { FinancingSimulatorRepository } from '../repositorties/financing-simulator.repository';
 import { ListSimulationsPaginateDto } from '../dtos/list-simulations-request.dto';
-import Decimal from 'decimal.js';
 
 @Injectable()
 export class RetrieveStudentSimulationsUseCase {
@@ -17,7 +16,7 @@ export class RetrieveStudentSimulationsUseCase {
             createdAt: simulationParams?.createdAt,
             installments: simulationParams?.installments,
             total: simulationParams?.total
-                ? new Decimal(simulationParams.total)
+                ? +simulationParams.total
                 : undefined,
         };
         const [total, simulations] = await Promise.all([
@@ -41,7 +40,9 @@ export class RetrieveStudentSimulationsUseCase {
                     uuid: simulation.getUuid(),
                     total: simulation.getTotal().toFixed(2),
                     installments: simulation.getInstallments(),
-                    monthlyInterest: simulation.getMonthlyInterest().toString(),
+                    monthlyInterest: (
+                        simulation.getMonthlyInterest() * 100
+                    ).toFixed(2),
                     monthlyInstallment: simulation
                         .getMonthlyInstallment()
                         .toFixed(2),

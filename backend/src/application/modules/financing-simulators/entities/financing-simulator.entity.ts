@@ -1,14 +1,13 @@
 import { CommonEntity } from '@application/shared/classes/common-entity';
-import Decimal from 'decimal.js';
 
 export class FinancingSimulatorEntity extends CommonEntity {
-    private total: Decimal;
+    private total: number;
     private installments: number;
-    private monthlyInterest: Decimal;
-    private monthlyInstallment: Decimal;
+    private monthlyInterest: number;
+    private monthlyInstallment: number;
     studentId: number;
 
-    public setTotal(total: Decimal): void {
+    public setTotal(total: number): void {
         this.total = total;
     }
 
@@ -16,15 +15,15 @@ export class FinancingSimulatorEntity extends CommonEntity {
         this.installments = value;
     }
 
-    public setMonthlyInterest(value: Decimal): void {
+    public setMonthlyInterest(value: number): void {
         this.monthlyInterest = value;
     }
 
-    public setMonthlyInstallment(value: Decimal): void {
+    public setMonthlyInstallment(value: number): void {
         this.monthlyInstallment = value;
     }
 
-    public getTotal(): Decimal {
+    public getTotal(): number {
         return this.total;
     }
 
@@ -32,27 +31,34 @@ export class FinancingSimulatorEntity extends CommonEntity {
         return this.installments;
     }
 
-    public getMonthlyInterest(): Decimal {
+    public getMonthlyInterest(): number {
         return this.monthlyInterest;
     }
 
-    public getMonthlyInstallment(): Decimal {
+    public getMonthlyInstallment(): number {
         return this.monthlyInstallment;
     }
 
     public calculateMonthlyInstallment(): void {
-        const isZeroInterest = this.monthlyInterest.equals(0);
-        if (isZeroInterest) {
-            this.monthlyInstallment = this.total.div(this.installments);
+        if (!this.total || !this.installments) {
+            throw new Error(
+                'Total and installments must be set before calculation.',
+            );
+        }
+
+        // Se a taxa de juros é zero, parcela é só total / n
+        if (!this.monthlyInterest || this.monthlyInterest === 0) {
+            this.monthlyInstallment = this.total / this.installments;
             return;
         }
 
-        const discountFactor = new Decimal(1).minus(
-            this.monthlyInterest.plus(1).pow(-this.installments),
-        );
-        const monthlyInstallment = this.total
-            .mul(this.monthlyInterest)
-            .div(discountFactor);
+        const i = this.monthlyInterest;
+        const n = this.installments;
+        const pv = this.total;
+
+        // Fórmula Price: PMT = PV * (i / (1 - (1 + i)^-n))
+        const discountFactor = 1 - Math.pow(1 + i, -n);
+        const monthlyInstallment = pv * (i / discountFactor);
 
         this.monthlyInstallment = monthlyInstallment;
     }

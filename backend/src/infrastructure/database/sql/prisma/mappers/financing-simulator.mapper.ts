@@ -9,9 +9,11 @@ export class FinancingSimulatorMap {
         simulation.setUuid(dbSimulation.uuid);
         simulation.setCreatedAt(dbSimulation.createdAt);
         simulation.setInstallments(dbSimulation.installments);
-        simulation.setMonthlyInstallment(dbSimulation.monthlyInstallment);
-        simulation.setMonthlyInterest(dbSimulation.monthlyInterest);
-        simulation.setTotal(dbSimulation.total);
+        simulation.setMonthlyInstallment(
+            Number(dbSimulation.monthlyInstallment),
+        );
+        simulation.setMonthlyInterest(Number(dbSimulation.monthlyInterest));
+        simulation.setTotal(Number(dbSimulation.total));
         simulation.studentId = dbSimulation.studentId;
 
         return simulation;
