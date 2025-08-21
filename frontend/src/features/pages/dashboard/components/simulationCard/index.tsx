@@ -13,7 +13,7 @@ import type { ISimulation } from "../../../../../services/types/simulation.type"
 type CardProps = {
     simulation: ISimulation;
     onEdit(simulation: ISimulation): void;
-    onDelete(id: string): Promise<void>
+    onDelete(id: string): Promise<void>;
 };
 
 function SimulationCard({ onEdit, simulation, onDelete }: CardProps) {
@@ -81,7 +81,7 @@ function SimulationCard({ onEdit, simulation, onDelete }: CardProps) {
                             <PercentIcon size={16} />
                             Taxa de juros
                         </div>
-                        <p> {+monthlyInterest * 100}% a.m</p>
+                        <p> {+monthlyInterest}% a.m</p>
                     </span>
                     <span>
                         <div>
